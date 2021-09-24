@@ -1,10 +1,4 @@
-//document element variables
-var currentDayEl = document.getElementById('currentDay');
-var containerEl = $(".container");
-
-//global variables
-var currentHour = moment().format("H");
-var hours = [];
+//object with an array of times and labels
 var structureInfo = {
   hours: [
     { label: "9am", time: "9" },
@@ -19,41 +13,66 @@ var structureInfo = {
   ],
 };
 
+//starts everything
 function init() {
-    createStructure();
-    currentDayEl.textContent = moment().format("dddd, MMMM Do");
-    colorRows();
+  createStructure();
+  var currentDayEl = document.getElementById("currentDay");
+  currentDayEl.textContent = moment().format("dddd, MMMM Do");
+  colorRows();
+  getStoredText();
 };
 
+//creates all elements inside the container div
 function createStructure(){
   for (var j = 0; j < structureInfo.hours.length; j++) {
-    $("<div>", { class: "row align-items-center" })
+    $("<div>", { class: "row align-items-start" })
       .append(
         $(
-          "<div class='col hour align-self-center'>" +
+          "<div class='col-sm-1 hour'>" +
             structureInfo.hours[j].label +
-            "</div><div class='col-sm-8 text align-self-center' data-time='" + structureInfo.hours[j].time +"'><textarea></textarea></div><div class='col save align-self-center'><button type='submit' class='btn fas fa-save saveBtn'></button></div>"
-        )).appendTo(containerEl);
+            "</div><div class='col-sm-10 text' data-time='" +
+            structureInfo.hours[j].time +
+            "'><textarea id='" +
+            structureInfo.hours[j].time +
+            "' data-text='" +
+            structureInfo.hours[j].time +
+            "'></textarea></div><div class='col-sm-1 save'><button type='submit' class='btn fas fa-save saveBtn'></button></div>"
+        )
+      )
+      .appendTo($(".container"));
   }
+  $('.saveBtn').on('click', storeStuff);
 };
 
+//adds colors to row based on current hour
 function colorRows() {
-    var hoursEl = document.querySelectorAll("[data-time]");
-    console.log(hoursEl);
+  var hoursEl = document.querySelectorAll("[data-time]");
+  var currentHour = moment().format("H");
     hoursEl.forEach(element => {
-        console.log(element.attributes[1].value)
-        console.log(currentHour)
         if (element.attributes[1].value == currentHour) {
             element.classList.add("present");
         } else if (element.attributes[1].value > currentHour) {
             element.classList.add("future");
-        } else {
-            element.classList.add("past");
+        } else if (element.attributes[1].value < currentHour) {
+          element.classList.add("past");
         }
     });
-    for (var i = 0; i < structureInfo.hours.length; i++){
+};
 
-    }
+//gets textbox content and stores it in local storage
+function storeStuff() {
+  var text = $(this).parent('div').parent('div').find('textarea').val().trim();
+  var textId = $(this).parent("div").parent("div").find("textarea").get(0).id;
+  localStorage.setItem(textId, text);
+}
+
+//gets local stored text and puts it in the textboxes
+function getStoredText() {
+  var textEl = document.querySelectorAll("[data-text]");
+  textEl.forEach(element => {
+    var item = localStorage.getItem(element.id);
+    element.textContent = item;
+  })
 };
 
 init();

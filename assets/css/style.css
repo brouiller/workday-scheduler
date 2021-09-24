@@ -4,44 +4,50 @@ body {
   line-height: 1;
 }
 
-
-
 .jumbotron {
   text-align: center;
   background-color: transparent;
   color: black;
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: .6rem solid black;
 }
 
 .description {
   white-space: pre-wrap;
 }
 
-.time-block {
-  text-align: center;
-  border-radius: 1rem;
+.text {
+  height: 4rem;
+  padding-right: 0px;
 }
+
 /* columns */
 textarea {
   background: transparent;
   border: none;
   resize: none;
   color: #000000;
-  border: 1px solid black;
+  border-left: 1px solid black;
   height: 100%;
   width: 100%;
+  padding: 0px;
+  border-top: 1px solid white;
 }
 .row {
   white-space: pre-wrap;
-  height: 5rem;
-  border: 1px solid black;
+  height: 4rem;
+  border-top: 1px solid white;
+  margin: 0px;
+}
+.row>* {
+  padding-left: 0px;
 }
 .hour {
   background-color: #ffffff;
   color: #000000;
-  border: 1px dashed #000000;
+  border-top: 1px dashed #000000;
   text-align: right;
+  padding-top: .5rem;
 }
 /* end columns */
 .past {
@@ -59,8 +65,9 @@ textarea {
   color: white;
 }
 .save {
-  padding-left: 0;
-  border: 1px solid black;
+  padding-right: 0px;
+  height: 4rem;
+  border-top: 1px solid white;
 }
 .saveBtn {
   border-left: 1px solid black;
@@ -70,6 +77,7 @@ textarea {
   color: white;
   padding: 1.3rem;
   text-align: left;
+  height: 4rem;
 }
 
 .saveBtn i:hover {
@@ -80,4 +88,8 @@ textarea {
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
+}
+
+.container {
+  padding-top: 1rem;
 }
