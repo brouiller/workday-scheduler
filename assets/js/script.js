@@ -47,8 +47,7 @@ function createStructure() {
 //adds colors to row based on current hour
 function colorRows() {
   var hoursEl = document.querySelectorAll("[data-time]");
-  // var currentHour = parseInt(moment().format("H"));
-  var currentHour = 12;
+  var currentHour = parseInt(moment().format("H"));
   hoursEl.forEach((element) => {
     if (parseInt(element.dataset.time) === currentHour) {
       element.classList.add("present");
