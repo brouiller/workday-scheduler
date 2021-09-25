@@ -20,10 +20,10 @@ function init() {
   currentDayEl.textContent = moment().format("dddd, MMMM Do");
   colorRows();
   getStoredText();
-};
+}
 
 //creates all elements inside the container div
-function createStructure(){
+function createStructure() {
   for (var j = 0; j < structureInfo.hours.length; j++) {
     $("<div>", { class: "row align-items-start" })
       .append(
@@ -41,27 +41,27 @@ function createStructure(){
       )
       .appendTo($(".container"));
   }
-  $('.saveBtn').on('click', storeStuff);
-};
+  $(".saveBtn").on("click", storeStuff);
+}
 
 //adds colors to row based on current hour
 function colorRows() {
   var hoursEl = document.querySelectorAll("[data-time]");
-  var currentHour = moment().format("H");
-    hoursEl.forEach(element => {
-        if (element.attributes[1].value == currentHour) {
-            element.classList.add("present");
-        } else if (element.attributes[1].value > currentHour) {
-            element.classList.add("future");
-        } else if (element.attributes[1].value < currentHour) {
-          element.classList.add("past");
-        }
-    });
-};
+  var currentHour = parseInt(moment().format("H"));
+  hoursEl.forEach((element) => {
+    if (parseInt(element.dataset.time) === currentHour) {
+      element.classList.add("present");
+    } else if (parseInt(element.dataset.time) > currentHour) {
+      element.classList.add("future");
+    } else {
+      element.classList.add("past");
+    }
+  });
+}
 
 //gets textbox content and stores it in local storage
 function storeStuff() {
-  var text = $(this).parent('div').parent('div').find('textarea').val().trim();
+  var text = $(this).parent("div").parent("div").find("textarea").val().trim();
   var textId = $(this).parent("div").parent("div").find("textarea").get(0).id;
   localStorage.setItem(textId, text);
 }
@@ -69,10 +69,9 @@ function storeStuff() {
 //gets local stored text and puts it in the textboxes
 function getStoredText() {
   var textEl = document.querySelectorAll("[data-text]");
-  textEl.forEach(element => {
+  textEl.forEach((element) => {
     var item = localStorage.getItem(element.id);
     element.textContent = item;
-  })
-};
-
+  });
+}
 init();
